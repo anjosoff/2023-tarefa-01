@@ -109,8 +109,11 @@ div.uploader {
 }
 
 .card {
-  padding: 25px;
-  margin-bottom: 20px;
+  margin-left:150px;
+  margin-top: 40px;
+  padding: 20px;
+  padding-top: 0;
+  width: 700px;
   border: initial;
   background: #fff;
   border-radius: calc(0.15rem - 1px);

@@ -119,7 +119,7 @@ function App() {
                 <Input
                   type='text'
                   value={task}
-                  placeholder='Adicione sua tarefa...'
+                  placeholder='Adicione uma nova tarefa...'
                   className={`form-control ${isTaskEmpty ? 'empty-input' : ''}`}
                   onChange={handleTaskCHange}
                   required
