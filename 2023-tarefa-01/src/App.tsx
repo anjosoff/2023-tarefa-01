@@ -2,19 +2,25 @@ import { ChangeEvent, FormEvent, useState } from 'react'
 import './App.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrash } from '@fortawesome/free-solid-svg-icons'
+import { isEmpty } from  'lodash';
+
 type InputProps = {
   type: string,
   placeholder: string,
   className: string,
+  value: string,
+  required: boolean,
   onChange: (event: ChangeEvent<HTMLInputElement>) => void
 }
-const Input = ({ onChange, type, placeholder, className }: InputProps) => {
+const Input = ({ onChange, type, placeholder, className, value, required}: InputProps) => {
   return (
     <input
       type={type}
+      value={value}
       className={className}
       placeholder={placeholder}
       onChange={onChange}
+      required={required}
     />
   )
 }
@@ -84,11 +90,23 @@ function App() {
 
   console.log(item)
 
-  function handAddItem(event: FormEvent) {
+  function handleAddItem(event: FormEvent) {
     event.preventDefault();
-    setItem((oldItem) => [...oldItem, task])
+    if (isEmpty(task.trim())) {
+      alert('Digite um nome válido para sua task!')
+      return;
+    }
+    setItem([...item, task])
+    setTask('')
 
   }
+
+  const handleTaskCHange= (e:React.ChangeEvent<HTMLInputElement>) =>{
+    setTask(e.target.value)
+  }
+
+  const isTaskEmpty = isEmpty(task.trim())
+
   return (
     <div className="App">
       <div className="container">
@@ -96,16 +114,16 @@ function App() {
           <div className="col-md-12">
             <div className="card card-white">
               <div className="card-body"></div>
-              <form onSubmit={handAddItem}>
+              <h5 className="card-title">Todo List</h5>
+              <form onSubmit={handleAddItem}>
                 <Input
                   type='text'
-                  placeholder='Add Task'
-                  className='form-control'
-                  onChange={(event) =>{ 
-                    setTask(event.target.value)
-                  }
-                  }
-                />
+                  value={task}
+                  placeholder='Adicione sua tarefa...'
+                  className={`form-control ${isTaskEmpty ? 'empty-input' : ''}`}
+                  onChange={handleTaskCHange}
+                  required
+                  />
               </form>
               <ul className="nav nav-pills todo-nav">
                 <FilterButton
