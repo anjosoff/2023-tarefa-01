@@ -85,8 +85,14 @@ const CardToDo = ({ texto, handleRemoveItem, expected }: CardsProps) => {
 
 function App() {
   const [task, setTask] = useState('')
-  const [item, setItem] = useState<string[]>([]);
+  const [item, setItem] = useState<string[]>([
+    " Create theme",
+    "Work on wordpress",
+    "Organize office main department",
+    "Error solve in HTML template",
+  ]);
   const [expected, setExpected] = useState(0)
+  
 
   console.log(item)
 
@@ -103,6 +109,7 @@ function App() {
 
   const handleTaskCHange= (e:React.ChangeEvent<HTMLInputElement>) =>{
     setTask(e.target.value)
+    console.log(e.target.value)
   }
 
   const isTaskEmpty = isEmpty(task.trim())
